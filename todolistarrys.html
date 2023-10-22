@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <input type="text" id="taskinput" placeholder="Please enter your task here">
+   <button  type="button"    id="addtaskbtn">Add task</button>
+   <ul id="tasklist"></ul>
+   <button   type="button"   id="clearbtn">Clear All</button>
+   <script>
+    let taskinput=document.getElementById("taskinput");
+    const addtaskbtn=document.getElementById("addtaskbtn");
+    let tasklist=document.getElementById("tasklist");
+    const clearbtn=document.getElementById("clearbtn");
+    tasks=[];
+    function rendertasks(){
+        tasklist.innerHTML="";
+        tasks.forEach((task,index)=>{
+            var li=document.createElement("li")
+            li.textContent=task;
+        
+        var deletebtn=document.createElement("button");
+            deletebtn.textContent="Delete";
+            deletebtn.addEventListener("click",()=>{
+                tasks.splice(index,1);
+                rendertasks();
+            });
+        li.appendChild(deletebtn);
+         tasklist.appendChild(li);
+    });
+    }
+    function addtask(){
+        let tasktext=taskinput.value.trim();
+        if(tasktext!=""){
+            tasks.push(tasktext);
+            taskinput.value="";
+            rendertasks()
+        }
+    }
+    function cleartasks(){
+        tasks=[];
+        rendertasks()
+    }
+    addtaskbtn.addEventListener("click",addtask)
+    clearbtn.addEventListener("click",cleartasks)
+   </script> 
+</body>
+
